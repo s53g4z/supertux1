@@ -5,6 +5,7 @@ This software repository holds the original SuperTux v0.1.3, with the following 
 - Tux player
   - Ducking makes Tux grow bigger.
   - Tux's fire bullets are multishot.
+  - Tux's fire bullets break breakable bricks.
 - Bomb badguy
   - Explosions destroy breakable bricks.
   - Bumping detonates.
