@@ -80,6 +80,22 @@ Bullet::remove_me()
   assert(false);
 }
 
+bool
+Bullet::break_brick(float x, float y) {
+  Tile* tile = gettile(x, y);
+  if (tile->brick && tile->data <= 0) {
+    World::current()->get_level()->change(x, y, TM_IA, tile->next_tile);
+    World::current()->add_broken_brick(tile,
+                           ((int)(x+1)/32)*32,
+                           (int)(y/32)*32);
+    play_sound(sounds[SND_BRICK], SOUND_CENTER_SPEAKER);
+    player_status.score += SCORE_BRICK;
+    remove_me();
+    return true;
+  }
+  return false;
+}
+
 void
 Bullet::action(double frame_ratio)
 {
@@ -91,6 +107,14 @@ Bullet::action(double frame_ratio)
   base.y = base.y + base.ym * frame_ratio;
 
   collision_swept_object_map(&old_base,&base);
+
+  float x = base.x + 16;
+  float y = base.y + 0;
+  if (break_brick(x, y))
+    return;
+  x = base.x - 16;
+  if (break_brick(x, y))
+    return;
       
   if (issolid(base.x, base.y + 4) || issolid(base.x, base.y))
     {

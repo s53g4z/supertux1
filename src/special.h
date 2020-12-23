@@ -27,6 +27,7 @@
 #include "collision.h"
 #include "player.h"
 #include "physic.h"
+#include "tile.h"
 
 /* Upgrade types: */
 
@@ -72,6 +73,7 @@ class Bullet : public GameObject
   base_type base;
   base_type old_base;
   
+  bool break_brick(float x, float y);
   void init(float x, float y, float xm, Direction dir);
   void action(double frame_ratio);
   void draw();
