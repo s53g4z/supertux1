@@ -1,6 +1,6 @@
 # supertux1
 
-## The original SuperTux, with modifications:
+This software repository holds the original SuperTux v0.1.3, with the following modifications:
 
 - Tux player
   - Ducking makes Tux grow bigger.
