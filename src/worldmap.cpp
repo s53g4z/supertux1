@@ -1045,7 +1045,7 @@ WorldMap::savegame(const std::string& filename)
       << "  (tux (x " << tux->get_tile_pos().x << ") (y " << tux->get_tile_pos().y << ")\n"
       << "       (back \"" << direction_to_string(tux->back_direction) << "\")\n"
       << "       (bonus \"" << bonus_to_string(player_status.bonus) <<  "\")\n"
-      >> "       (ncoffee \"" << player_status.ncoffee << "\"))\n"
+      << "       (ncoffee \"" << player_status.ncoffee << "\"))\n"
       << "  (levels\n";
   
   for(Levels::iterator i = levels.begin(); i != levels.end(); ++i)

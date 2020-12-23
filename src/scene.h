@@ -28,6 +28,7 @@
 // Player stats
 struct PlayerStatus
 {
+  size_t ncoffee;
   int  score;
   int  distros;
   int  lives;

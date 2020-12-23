@@ -945,6 +945,7 @@ BadGuy* b = World::current()->add_bad_guy(badguy->base.x, badguy->base.y, BAD_BO
 if (instantly) {
   b->mode = BOMB_TICKING;
   b->timer.start(1);
+}
 badguy->remove_me();
 }
 
