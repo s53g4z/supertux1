@@ -995,7 +995,7 @@ BadGuy::collision(void *p_c_object, int c_object, CollisionType type)
         if (pbad_c->kind == BAD_MRBOMB)
         {
           // mrbomb transforms into a bomb now
-          explode(pbad_c);
+          explode(pbad_c, false);
           return;
         }
         else if (pbad_c->kind != BAD_MRBOMB)
@@ -1010,7 +1010,7 @@ BadGuy::collision(void *p_c_object, int c_object, CollisionType type)
         if (pbad_c->kind == BAD_MRBOMB)
         {
           // mrbomb transforms into a bomb now
-          explode(pbad_c);
+          explode(pbad_c, false);
           return;
         }
         else
