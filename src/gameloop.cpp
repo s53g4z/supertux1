@@ -725,7 +725,7 @@ GameSession::drawstatus()
 
   sprintf(str, "%d", player_status.distros);
   white_text->draw("COINS", screen->h, 0, 1);
-  gold_text->draw(str, 608, 0, 1);
+  gold_text->draw(str, 608-18, 0, 1);
 
   white_text->draw("LIVES", 480, 20);
   if (player_status.lives >= 5)

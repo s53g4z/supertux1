@@ -330,26 +330,23 @@ Upgrade::collision(void* p_c_object, int c_object, CollisionType type)
       if (kind == UPGRADE_GROWUP)
         {
           play_sound(sounds[SND_EXCELLENT], SOUND_CENTER_SPEAKER);
-          pplayer->grow();
+          pplayer->kill(Player::SHRINK);
         }
       else if (kind == UPGRADE_ICEFLOWER)
         {
           play_sound(sounds[SND_COFFEE], SOUND_CENTER_SPEAKER);
           pplayer->grow();
           pplayer->got_coffee = true;
+          pplayer->ncoffee++;
         }
       else if (kind == UPGRADE_HERRING)
         {
           play_sound(sounds[SND_HERRING], SOUND_CENTER_SPEAKER);
-          pplayer->invincible_timer.start(TUX_INVINCIBLE_TIME);
-          World::current()->play_music(HERRING_MUSIC);
+          pplayer->kill(Player::SHRINK);
         }
       else if (kind == UPGRADE_1UP)
         {
-          if(player_status.lives < MAX_LIVES) {
-            player_status.lives++;
             play_sound(sounds[SND_LIFEUP], SOUND_CENTER_SPEAKER);
-          }
         }
 
       remove_me();

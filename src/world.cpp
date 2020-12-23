@@ -90,6 +90,7 @@ World::apply_bonuses()
 
     case PlayerStatus::FLOWER_BONUS:
       tux.got_coffee = true;
+      tux.ncoffee = player_status.ncoffee;
       // fall through
 
     case PlayerStatus::GROWUP_BONUS:
@@ -541,7 +542,7 @@ World::add_upgrade(float x, float y, Direction dir, UpgradeKind kind)
 void 
 World::add_bullet(float x, float y, float xm, Direction dir)
 {
-  if(bullets.size() > MAX_BULLETS-1)
+  if(bullets.size() >= tux.ncoffee)
     return;
 
   Bullet new_bullet;

@@ -28,7 +28,7 @@ bool use_sound = true;    /* handle sound on/off menu and command-line option */
 bool use_music = true;    /* handle music on/off menu and command-line option */
 bool audio_device = true; /* != 0: available and initialized */
 
-char * soundfilenames[NUM_SOUNDS] = {
+const char * soundfilenames[NUM_SOUNDS] = {
                                        "/sounds/jump.wav",
                                        "/sounds/bigjump.wav",
                                        "/sounds/skid.wav",
@@ -72,8 +72,8 @@ int open_audio (int frequency, Uint16 format, int channels, int chunksize)
     return -3;
 
   /* prepare the spanning effects */
-  Mix_SetPanning( SOUND_LEFT_SPEAKER, 230, 24 );
-  Mix_SetPanning( SOUND_RIGHT_SPEAKER, 24, 230 );
+  Mix_SetPanning( SOUND_LEFT_SPEAKER, 230, 230 );
+  Mix_SetPanning( SOUND_RIGHT_SPEAKER, 230, 230 );
   return 0;
 }
 
@@ -118,7 +118,7 @@ void play_sound(Mix_Chunk * snd, enum Sound_Speaker whichSpeaker)
   Mix_PlayChannel( whichSpeaker, snd, 0);
 
   /* prepare for panning effects for next call */
-  switch (whichSpeaker) {
+/*  switch (whichSpeaker) {
     case SOUND_LEFT_SPEAKER:
       Mix_SetPanning( SOUND_LEFT_SPEAKER, 230, 24 );
       break;
@@ -127,7 +127,7 @@ void play_sound(Mix_Chunk * snd, enum Sound_Speaker whichSpeaker)
       break;
     default:  // keep the compiler happy
       break;
-  }
+  }*/
 }
 
 void free_chunk(Mix_Chunk *chunk)

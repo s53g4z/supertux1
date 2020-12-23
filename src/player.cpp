@@ -73,6 +73,7 @@ Player::init()
 
   size = SMALL;
   got_coffee = false;
+  ncoffee = 0;
 
   base.x = plevel->start_pos_x;
   base.y = plevel->start_pos_y;
@@ -464,6 +465,9 @@ Player::handle_input()
         }
     }
 
+  if (input.down == DOWN && size != BIG && !duck && physic.get_velocity_y() == 0 && on_ground())
+    grow();
+
   /* Duck! */
   if (input.down == DOWN && size == BIG && !duck && physic.get_velocity_y() == 0 && on_ground())
     {
@@ -705,6 +709,7 @@ Player::kill(HurtMode mode)
       if (got_coffee)
         {
           got_coffee = false;
+          ncoffee = 0;
         }
       else
         {
@@ -745,6 +750,7 @@ void
 Player::remove_powerups()
 {
   got_coffee = false;
+  ncoffee = 0;
   size = SMALL;
   base.height = 32;
 }

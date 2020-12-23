@@ -453,6 +453,12 @@ BadGuy::action_bomb(double frame_ratio)
       dying = DYING_NOT; // now the bomb hurts
       timer.start(EXPLODETIME);
 
+      std::list<int> list = { -50, -48, -32, -16, 0, 16, 32, 48, 64, 66 };
+      for (const int x : list)
+        for (const int y : list)
+          for (const Direction& dir : { LEFT, RIGHT })
+            World::current()->trybreakbrick(base.x + x, base.y + y, false, dir);
+
       /* play explosion sound */  // FIXME: is the stereo all right? maybe we should use player cordinates...
       if (base.x < scroll_x + screen->w/2 - 10)
         play_sound(sounds[SND_EXPLODE], SOUND_LEFT_SPEAKER);
@@ -800,6 +806,11 @@ BadGuy::bump()
       || kind == BAD_FLYINGSNOWBALL)
     return;
 
+  if (kind == BAD_MRBOMB) {
+    explode(this, true);
+    return;
+  }
+
   physic.set_velocity_y(3);
   kill_me(25);
 }
@@ -928,9 +939,12 @@ BadGuy::kill_me(int score)
   play_sound(sounds[SND_FALL], SOUND_CENTER_SPEAKER);
 }
 
-void BadGuy::explode(BadGuy *badguy)
+void BadGuy::explode(BadGuy *badguy, bool instantly)
 {
-World::current()->add_bad_guy(badguy->base.x, badguy->base.y, BAD_BOMB);
+BadGuy* b = World::current()->add_bad_guy(badguy->base.x, badguy->base.y, BAD_BOMB);
+if (instantly) {
+  b->mode = BOMB_TICKING;
+  b->timer.start(1);
 badguy->remove_me();
 }
 
@@ -954,6 +968,8 @@ BadGuy::collision(void *p_c_object, int c_object, CollisionType type)
   switch (c_object)
     {
     case CO_BULLET:
+      if (kind == BAD_MRBOMB)
+        explode(this, true);
       kill_me(10);
       break;
 

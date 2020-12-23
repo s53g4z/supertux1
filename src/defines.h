@@ -67,7 +67,7 @@ enum DyingType {
 
 /* gameplay related defines */
 
-#define START_LIVES 4
+#define START_LIVES 1
 
 #define MAX_BULLETS 2
 

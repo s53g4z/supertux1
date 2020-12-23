@@ -112,6 +112,7 @@ public:
 
   player_input_type  input;
   bool got_coffee;
+  size_t ncoffee;
   int size;
   bool duck;
   bool holding_something;

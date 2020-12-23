@@ -732,6 +732,7 @@ WorldMap::update(float delta)
                   {
                     bool old_level_state = level->solved;
                     level->solved = true;
+                    player_status.ncoffee = session.get_world()->get_tux()->ncoffee;
 
                     if (session.get_world()->get_tux()->got_coffee)
                       player_status.bonus = PlayerStatus::FLOWER_BONUS;
@@ -1036,14 +1037,15 @@ WorldMap::savegame(const std::string& filename)
     }
 
   out << "(supertux-savegame\n"
-      << "  (version 1)\n"
+      << "  (version 2)\n"
       << "  (title  \"Icyisland - " << nb_solved_levels << "/" << levels.size() << "\")\n"
       << "  (lives   " << player_status.lives << ")\n"
       << "  (score   " << player_status.score << ")\n"
       << "  (distros " << player_status.distros << ")\n"
       << "  (tux (x " << tux->get_tile_pos().x << ") (y " << tux->get_tile_pos().y << ")\n"
       << "       (back \"" << direction_to_string(tux->back_direction) << "\")\n"
-      << "       (bonus \"" << bonus_to_string(player_status.bonus) <<  "\"))\n"
+      << "       (bonus \"" << bonus_to_string(player_status.bonus) <<  "\")\n"
+      >> "       (ncoffee \"" << player_status.ncoffee << "\"))\n"
       << "  (levels\n";
   
   for(Levels::iterator i = levels.begin(); i != levels.end(); ++i)
@@ -1096,13 +1098,16 @@ WorldMap::loadgame(const std::string& filename)
       Point p;
       std::string back_str = "none";
       std::string bonus_str = "none";
+      std::string ncoffee_str = "0";
 
       LispReader tux_reader(tux_cur);
       tux_reader.read_int("x", &p.x);
       tux_reader.read_int("y", &p.y);
       tux_reader.read_string("back", &back_str);
       tux_reader.read_string("bonus", &bonus_str);
+      tux_reader.read_string("ncoffee", &ncoffee_str);
       
+      player_status.ncoffee = std::strtoll(ncoffee_str.c_str(), nullptr, 10);
       player_status.bonus = string_to_bonus(bonus_str);
       tux->back_direction = string_to_direction(back_str);      
       tux->set_tile_pos(p);
